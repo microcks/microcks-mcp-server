@@ -25,3 +25,6 @@ replay_pid*
 
 # IntelliJ IDEA project files
 .idea/
+
+# Maven target directory
+target/
