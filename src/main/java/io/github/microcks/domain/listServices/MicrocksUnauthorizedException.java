@@ -13,19 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.microcks;
+package io.github.microcks.domain.listServices;
 
-import io.quarkiverse.mcp.server.Tool;
-import io.quarkiverse.mcp.server.ToolArg;
-import io.quarkiverse.mcp.server.ToolResponse;
-import jakarta.enterprise.context.ApplicationScoped;
 
-@ApplicationScoped
-public class MicrocksTools {
+/**
+ * Exception thrown when authentication to Microcks fails (HTTP 401). Credentials are missing or invalid.
+ */
+public class MicrocksUnauthorizedException extends MicrocksAccessException {
 
-   @Tool(name = "microcks_import_artifact", description = "Import a file artifact (OpenAPI, AsyncAPI, "
-         + "GraphQL schema, Protobuffer file or Collection) into Microcks")
-   ToolResponse importArtifact(@ToolArg(description = "Artifact file name") String name) {
-      return ToolResponse.success("Imported " + name);
+   public MicrocksUnauthorizedException(Throwable cause) {
+      super(cause);
+   }
+
+   @Override
+   public String getAgentErrorMessage() {
+      return "Microcks authentication failed. " + "The API credentials are missing or invalid. "
+            + "Do not retry. Ask the user to provide valid credentials.";
    }
 }
